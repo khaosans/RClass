@@ -1,0 +1,63 @@
+# R data files
+*.RData
+*.rda
+*.rds
+
+# History files
+.Rhistory
+.Rapp.history
+
+# Session Data files
+.RData
+.Ruserdata
+
+# Example code in package build process
+*-Ex.R
+
+# Output files from R CMD build
+/*.tar.gz
+
+# Output files from R CMD check
+/*.Rcheck/
+
+# RStudio files
+.Rproj.user/
+.Rproj.user/*
+.Rproj.user/shared/
+.Rproj.user/shared/*
+
+# RStudio project files
+*.Rproj
+
+# RStudio settings files
+.Rhistory
+.RData
+.Ruserdata
+
+# Compiled dynamic libraries
+*.so
+*.dll
+*.dylib
+
+# Compiled static libraries
+*.a
+*.lib
+
+# Temporary files
+*.swp
+*.bak
+*.tmp
+
+# Logs
+*.log
+
+# VS Code
+.vscode/
+
+# JetBrains IDEs
+.idea/
+
+# Miscellaneous files
+.DS_Store
+Thumbs.db
+
