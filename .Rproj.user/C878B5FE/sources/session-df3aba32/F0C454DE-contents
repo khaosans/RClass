@@ -1,0 +1,78 @@
+
+import Head from 'next/head';
+import Link from 'next/link';
+import styles from '../styles/Home.module.css';
+
+export default function Home() {
+  return (
+    <div className={styles.container}>
+      <Head>
+        <title>Chainable - Home</title>
+        <meta name="description" content="Chainable - Innovative and Sustainable Solutions" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+      <header className={styles.header}>
+        <nav className={styles.nav}>
+          <div className={styles.logo}>Chainable</div>
+          <ul className={styles.navList}>
+            <li><Link href="#home">Home</Link></li>
+            <li><Link href="#features">Features</Link></li>
+            <li><Link href="#about">About</Link></li>
+            <li><Link href="#testimonials">Testimonials</Link></li>
+            <li><Link href="#contact">Contact</Link></li>
+          </ul>
+        </nav>
+      </header>
+
+      <main className={styles.main}>
+        <section id="hero" className={styles.hero}>
+          <h1>Innovative and Sustainable Solutions</h1>
+          <p>Transforming the future with cutting-edge technology.</p>
+          <a href="#features" className={styles.cta}>Learn More</a>
+        </section>
+
+        <section id="features" className={styles.features}>
+          <h2>Our Features</h2>
+          <div className={styles.featureItem}>
+            <h3>Feature 1</h3>
+            <p>Description of feature 1.</p>
+          </div>
+          <div className={styles.featureItem}>
+            <h3>Feature 2</h3>
+            <p>Description of feature 2.</p>
+          </div>
+          <div className={styles.featureItem}>
+            <h3>Feature 3</h3>
+            <p>Description of feature 3.</p>
+          </div>
+        </section>
+
+        <section id="about" className={styles.about}>
+          <h2>About Us</h2>
+          <p>Information about the company, mission, and values.</p>
+        </section>
+
+        <section id="testimonials" className={styles.testimonials}>
+          <h2>What Our Clients Say</h2>
+          <div className={styles.testimonialItem}>
+            <p>"Testimonial 1"</p>
+            <p>- Client 1</p>
+          </div>
+          <div className={styles.testimonialItem}>
+            <p>"Testimonial 2"</p>
+            <p>- Client 2</p>
+          </div>
+        </section>
+      </main>
+
+      <footer className={styles.footer}>
+        <p>&copy; 2024 Chainable. All rights reserved.</p>
+        <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </footer>
+    </div>
+  )
+}

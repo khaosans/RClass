@@ -1,0 +1,48 @@
+---
+title: "Bike Sharing Analysis"
+author: "Your Name"
+date: "2024-06-24"
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(lubridate)
+knitr::opts_chunk$set(echo = TRUE)
+```
+Read the Data
+```{r}
+
+# Load the dataset
+day <- read.csv("/Users/Sour/RClassTools/day.csv")
+
+# Display a summary of the dataset
+summary(day)
+```
+Data Preparation
+```{r}
+
+# Convert dteday to Date type
+day$dteday <- ymd(day$dteday)
+
+# Extract month names
+day$month_name <- month(day$dteday, label = TRUE, abbr = TRUE)
+
+# Ensure month_name is a character type
+day$month_name <- as.character(day$month_name)
+
+# Display the first few rows to verify the new column
+head(day)
+```
+Simple Linear Regression (Model 1)
+```{r}
+
+# Run the simple linear regression model
+Model1 <- lm(cnt ~ month_name, data = day)
+
+# Display the summary of the model
+summary(Model1)
+```

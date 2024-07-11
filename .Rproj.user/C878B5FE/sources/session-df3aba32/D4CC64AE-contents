@@ -1,0 +1,89 @@
+---
+title: "Bike Sharing Analysis"
+date: "2024-06-24"
+output:
+  html_document: default
+  word_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(lubridate)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Read the Data
+```{r}
+
+# Load the dataset
+day <- read.csv("/Users/Sour/RClassTools/day.csv")
+
+# Display a summary of the dataset
+summary(day)
+```
+
+### Data Preparation
+```{r}
+# Convert dteday to Date type
+day$dteday <- ymd(day$dteday)
+
+# Extract month names
+day$month_name <- month(day$dteday, label = TRUE, abbr = TRUE)
+
+# Ensure month_name is a character type
+day$month_name <- as.character(day$month_name)
+
+# Display the first few rows to verify the new column
+head(day)
+```
+### Simple Linear Regression (Model 1)
+
+```{r}
+# Run the simple linear regression model
+Model1 <- lm(cnt ~ month_name, data = day)
+
+# Display the summary of the model
+summary(Model1)
+```
+Analysis of Model 1
+The R-squared value of Model1 is r summary(Model1)$r.squared, which indicates that r summary(Model1)$r.squared * 100% of the variability in the cnt can be explained by the month_name.
+
+The reference month in Model1 is the one without a coefficient estimate. Typically, this is January, and the predicted cnt for this month is the intercept value, which is r coef(Model1)[1].
+
+### Predictions for January and June using Model 1
+```{r}
+# Predicted cnt for January
+pred_jan <- coef(Model1)[1] + coef(Model1)["month_nameJan"]
+pred_jan
+
+# Predicted cnt for June
+pred_jun <- coef(Model1)[1] + coef(Model1)["month_nameJun"]
+pred_jun
+
+
+```
+
+#### Multiple Linear Regression (Model 2)
+```{r}
+# Run the multiple linear regression model
+Model2 <- lm(cnt ~ temp + month_name, data = day)
+
+# Display the summary of the model
+summary(Model2)
+```
+#### Analysis of Model 2
+The R-squared value of Model2 is r summary(Model2)$r.squared, which is higher than that of Model1. The difference in R-squared values indicates that adding temp as an additional predictor has improved the model's ability to explain the variability in cnt.
+
+This improvement is because temp provides additional information that helps predict cnt, making the model more accurate.
+
+Comparison of Coefficient Estimates for January between Model 1 and Model 2
+The coefficient estimate for month_nameJan in Model1 is r coef(Model1)["month_nameJan"], whereas in Model2 it is r coef(Model2)["month_nameJan"]. The difference arises because Model2 accounts for the effect of temperature, which alters the relationship between month_nameJan and cnt.
+
+### Prediction for January with Temperature = 0.25 using Model 2
+```{r}
+# Predicted cnt for January with temp = 0.25
+pred_jan_temp <- coef(Model2)[1] + coef(Model2)["temp"] * 0.25 + coef(Model2)["month_nameJan"]
+
+pred_jan_temp
+```

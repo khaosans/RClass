@@ -1,0 +1,102 @@
+Certainly! Below is the R code to create an Excel file using the `openxlsx` package, including the necessary assumptions in the notes for each sheet.
+
+```R
+# Install and load the openxlsx package
+install.packages("openxlsx")
+library(openxlsx)
+
+# Create data frames for each sheet
+
+# Key Financials
+key_financials <- data.frame(
+  "For the Fiscal Period Ending" = c("Total Revenue", "Growth Over Prior Year", "EBITDA", "Margin %", "", "Latest Capitalization (Millions of USD)", "Currency", "Share Price", "Shares Out.", "Market Capitalization", "- Cash & Short Term Investments", "+ Total Debt", "= Total Enterprise Value (TEV)"),
+  "12 months Dec-31-2021E" = c(428.17, "54.16%", 96.53, "22.54%", "", "", "USD", "$21.33", 34.2, 729.6, 87.3, 279.8, 922.1),
+  "12 months Dec-31-2022E" = c(481.18, "12.38%", 112, "23.28%", "", "", "", "", "", "", "", "", ""),
+  "12 months Dec-31-2023E" = c(512.4, "6.49%", 119.65, "23.35%", "", "", "", "", "", "", "", "", ""),
+  "12 months Dec-31-2024E" = c(543.14, "6.00%", 114.06, "21.00%", "", "", "", "", "", "", "", "", ""),
+  "12 months Dec-31-2025E" = c(575.73, "6.00%", 120.9, "21.00%", "", "", "", "", "", "", "", "", "")
+)
+
+key_financials_notes <- "NOTES:
+- Revenue growth rate assumed to be 6% based on historical growth and industry trends.
+- EBITDA margin assumed to be 21% based on historical data."
+
+# Cash Flow
+cash_flow <- data.frame(
+  "For the Fiscal Period Ending" = c("Change in Acc. Receivable", "Change In Inventories", "Change in Acc. Payable", "Change in Unearned Rev.", "Change in Other Net Operating Assets", "Total change in working capital", "5-year average (until Dec, 2020)"),
+  "12 months Dec-25-2016" = c(-2.3, 0.1, -5.2, 3, 1.3, -3.2, 3.4),
+  "12 months Dec-31-2017" = c(-0.8, -0.7, 5.7, 3.7, -0.1, 7.8, ""),
+  "12 months Dec-30-2018" = c(2.2, -0.6, 2.6, 5.4, 0.4, 9.9, ""),
+  "12 months Dec-29-2019" = c(0.3, -0.1, -2.6, 3.8, -1.2, 0.2, ""),
+  "12 months Dec-27-2020" = c(1.9, 2, -13.3, 6.2, 5.2, 2, ""),
+  "LTM 12 months Jun-27-2021" = c(-4.5, 0, 5.9, 5.5, 7.2, 14.2, "")
+)
+
+cash_flow_notes <- "NOTES:
+- Working capital investments are based on historical trends and projected growth rates.
+- 5-year average working capital investment used to estimate future values."
+
+# Valuation
+valuation <- data.frame(
+  "Key Financials" = c("For the Fiscal Period Ending", "Total Revenue", "EBITDA", "Free Cash Flow", "", "Enterprise Value", "Debt", "Cash", "Equity Value", "Stock Price", "", "NOTES:"),
+  "12 months Dec-31-2021E" = c("Total Revenue", 428.17, 96.53, 57.83, "", 1303.96, 279.834, 87.339, 1111.465, 32.49, "", "Long-term growth rate assumed to be 2%"),
+  "12 months Dec-31-2022E" = c("EBITDA", 481.18, 112, 67.77, "", "", "", "", "", "", "", "WACC assumed to be 7%"),
+  "12 months Dec-31-2023E" = c("", 512.4, 119.65, 72.47, "", "", "", "", "", "", "", "Terminal value calculated using perpetuity growth method"),
+  "12 months Dec-31-2024E" = c("", 543.14, 114.06, 66.73, "", "", "", "", "", "", "", "Debt and Cash values taken from previous estimates"),
+  "12 months Dec-31-2025E" = c("", 575.73, 120.9, 70.73, "", "", "", "", "", "", "", "Shares outstanding: 34.2 million")
+)
+
+valuation_notes <- "NOTES:
+- Long-term growth rate assumed to be 2%
+- WACC assumed to be 7%
+- Terminal value calculated using perpetuity growth method
+- Debt and Cash values taken from previous estimates
+- Shares outstanding: 34.2 million"
+
+# Working Capital
+working_capital <- data.frame(
+  "For the Fiscal Period Ending" = c("Change in Acc. Receivable", "Change In Inventories", "Change in Acc. Payable", "Change in Unearned Rev.", "Change in Other Net Operating Assets", "Total change in working capital", "5-year average (2021E - 2025E)"),
+  "12 months Dec-31-2021E" = c(-2.0, 1.0, 2.0, 3.5, 0.5, 5.0, 9.34),
+  "12 months Dec-31-2022E" = c(-1.5, 1.2, 2.5, 4.0, 1.0, 7.2, ""),
+  "12 months Dec-31-2023E" = c(-1.0, 1.3, 3.0, 4.5, 1.5, 9.3, ""),
+  "12 months Dec-31-2024E" = c(-0.5, 1.5, 3.5, 5.0, 2.0, 11.5, ""),
+  "12 months Dec-31-2025E" = c(0.0, 1.7, 4.0, 5.5, 2.5, 13.7, "")
+)
+
+working_capital_notes <- "NOTES:
+- Changes in working capital components are estimated based on historical trends and assumed future patterns.
+- The calculations do not include extraordinary items or adjustments for potential market fluctuations."
+
+# Capital Expenditures
+capital_expenditures <- data.frame(
+  "For the Fiscal Period Ending" = c("Capital Expenditure", "Sale of Property, Plant, and Equipment", "Cash from Investing", "5-year average (2021E - 2025E)"),
+  "12 months Dec-31-2021E" = c(-27.57, 0, -27.57, -32.72),
+  "12 months Dec-31-2022E" = c(-30.99, 0, -30.99, ""),
+  "12 months Dec-31-2023E" = c(-33.00, 0, -33.00, ""),
+  "12 months Dec-31-2024E" = c(-34.98, 0, -34.98, ""),
+  "12 months Dec-31-2025E" = c(-37.08, 0, -37.08, "")
+)
+
+capital_expenditures_notes <- "NOTES:
+- Capital Expenditures are based on historical trends and projected growth rates.
+- No significant sales of property, plant, and equipment expected."
+
+# WACC Calculation
+wacc_calculation <- data.frame(
+  "WACC Calculation" = c("30-year treasury", "Beta", "rD", "Leverage (D/V)", "Shrunk Beta", "rE", "Tax", "WACC"),
+  "Value" = c("2%", "2.43", "4.000% (using spread of 2%)", "27.7%", "1.715 (leverage is close to the market's)", "10.6%", "21%", "8.5%")
+)
+
+wacc_calculation_notes <- "NOTES:
+- 30-year treasury rate is used as a risk-free rate.
+- Beta is derived from historical data and market expectations.
+- Cost of debt (rD) includes a spread of 2%.
+- Leverage ratio is based on industry standards.
+- Shrunk Beta is adjusted for leverage.
+- Cost of equity (rE) is calculated using CAPM.
+- Tax rate assumed to be 21%.
+- WACC calculated based on these inputs."
+
+# Synergy
+synergy <- data.frame(
+  "Synergy" = c("Offer in dollars", "Justified equity value", "Required synergy NPV", "Annual synergy", "Growth rate
