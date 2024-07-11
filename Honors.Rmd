@@ -1,6 +1,4 @@
-Certainly! Below is the R code to create an Excel file using the `openxlsx` package, including the necessary assumptions in the notes for each sheet.
 
-```R
 # Install and load the openxlsx package
 install.packages("openxlsx")
 library(openxlsx)
